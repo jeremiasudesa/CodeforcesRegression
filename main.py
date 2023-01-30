@@ -5,11 +5,12 @@ import matplotlib.pyplot as plt
 
 # The User
 WHO = 'tourist'
-# The size of the graph (1x, 2x, 3x of the original contests)
+# The size of the plot (1x, 2x, 3x of the original contests)
 PERIOD = 2
 
 
 def estimate_coef(x, y):
+    # Fit the rating information with logarithmic regression, using numpy
     fit = np.polyfit(np.log2(x), y, 1)
     return fit
 
@@ -20,9 +21,7 @@ def plot_regression_line(x, y, b):
                 marker="o", s=30)
     x = range(1, len(y) * PERIOD)
     # predicted response vector
-    y_pred = []
-    for e in x:
-        y_pred.append(b[1] + b[0]*np.log2(e))
+    y_pred = [b[1] + b[0]*np.log2(e) for e in x]
     # plotting the regression function
     plt.plot(range(1, len(y) * PERIOD), y_pred, color="g")
     # putting labels
